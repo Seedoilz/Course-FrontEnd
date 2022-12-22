@@ -1,0 +1,28 @@
+.watermark {
+    --watermark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='144px' height='144px'%3E  %3Ctext x='18' y='0' fill-opacity='0.1' fill='%23000' transform='translate(0,144)rotate(-45)' font-size='18'%3EJioho的博客%3C/text%3E%3C/svg%3E");
+    background-image: var(--watermark);
+    /* 其余样式省略... */
+  }  
+
+  .container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 0;
+  }
+  
+  .box {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  img{
+    max-width:100%;
+    overflow:hidden;
+    position:relative;
+  }

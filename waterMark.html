@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>CryptoStego (Minimal) Example</title>
+<style>
+    body{
+        background-size: 100% ;
+        padding: 0;
+        margin: 0;
+        background-color: rgb(165,213,239);
+    }
+    .uploader-box{
+        position: absolute;
+        top: 10%;
+        left: 25%;
+        width: 50%;
+        height:80%;
+        margin-top:-200;	
+        background-color: rgb(249,219,74);
+        text-align-last: center;
+        filter:alpha(Opacity=60);
+        -moz-opacity:0.8;
+        opacity: 0.8;
+        border-radius: 25px;
+    }
+    #file{
+        text-align: center;
+    }
+    label{
+            position: relative;
+        }
+    #fileinp{
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0;
+    }
+    #btn{
+        margin-right: 5px;
+    }
+    #create{
+        border-radius: 25px;
+        width:100px;
+        height:60px;
+        background-color: rgb(221,128,48);
+    }
+</style>
+<meta charset="UTF-8">
+</head>
+<body>
+    <div class = "uploader-box">
+        <br/><br/>
+        <h1>选择图片</h1> <br />
+        <label for="fileinp">
+            <input type="button" id="btn" value="点我上传"><span id="text">请上传图片</span>
+            <input type="file" id="fileinp">
+        </label><br />
+        <h1>放入的水印信息</h1><br /><textarea id="msg" style="width:50%;height:100px;" placeholder="Your Message Here!"></textarea><br/><br/><br/><br/>
+        <button id = "create" onclick='writeIMG()'>创建水印</button>
+    </div>
+
+
+</body>
+<script type="text/javascript" src="js/cryptostego.min.js"></script>
+<script>
+    const fileUploader = document.getElementById('fileinp');
+    fileUploader.addEventListener('change', (event) => {
+        const files = event.target.files;
+        console.log('files', files);
+        document.getElementById("text").innerHTML = files[0].name;
+    });
+
+
+    function writeIMG(){
+        function writefunc(){
+            if(writeMsgToCanvas('canvas',document.getElementById("msg").value,"",3)!=null){
+                var myCanvas = document.getElementById("canvas");
+                var image = myCanvas.toDataURL("image/jpeg",1.0);
+                var element = document.createElement('a');
+                element.setAttribute('href', image);
+                element.setAttribute('download', 'result.jpg');
+                element.style.display = 'none';
+                document.body.appendChild(element);
+                element.click();
+                document.body.removeChild(element);
+            }
+        }
+        loadIMGtoCanvas('fileinp','canvas',writefunc,1920);
+    }
+</script>

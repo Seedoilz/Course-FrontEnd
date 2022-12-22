@@ -1,0 +1,109 @@
+:root {
+  --main_color: #006699;
+  --main_hover: #3399cc;
+  --main_font: white;
+  --main_fonthover: black;
+  --main_theme: #e6e6e6;
+}
+/* html.dark {
+  color-scheme: dark;
+}
+html.default{
+  color-scheme: default;
+} */
+.dark{
+  --main_color: #1f2020;
+  --main_hover: #353535;
+  --main_font: rgb(82, 82, 82);
+  --main_fonthover: rgb(50, 50, 50);
+  --main_theme: #696969;
+}
+.top-bar {
+    width: 100%;
+    height: 50px;
+    margin: 0;
+    display: flex;
+}
+.box-top {
+    width: 100%;
+    
+    background-color: var(--main_color);
+    padding: 20px;
+    /*border-bottom-left-radius: 8px;*/
+    /*border-bottom-right-radius: 8px;*/
+}
+.top-ui-right {
+    width: 100%;
+    min-width: 800px;
+    height: 50px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.top-ui-right li{
+    width:10%;
+    min-width: 50px;
+    margin:-5px 50px 0 70px;
+    float: right;
+    text-align: center;
+    display: block;
+}
+.top-ui-right a{
+    color: var(--main_fonthover);
+    text-decoration: none;
+}
+.top-ui-right a:hover{
+    color: var(--main_font);
+} 
+
+.item {
+  /* add some spacing between the image and the buttons */
+  padding-bottom: 20px;
+}
+
+.item h2 {
+  /* change the font and color of the titles */
+  font-family: Arial, sans-serif;
+  color: var(--main_color);
+}
+
+.svgBtn, .fttBtn {
+  /* change the font and color of the buttons */
+  font-family: Arial, sans-serif;
+  color: var(--main_font);
+  /* add hover effects to the buttons */
+  cursor: pointer;
+  background-color: var(--main_color);
+  border: none;
+  transition: background-color 0.3s;
+}
+
+.svgBtn:hover, .fttBtn:hover {
+  /* change the background color of the buttons on hover */
+  background-color: var(--main_hover);
+}
+
+.masonry .item img {
+  /* adjust the width and height of the images */
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border: 5px solid var(--main_color);
+}
+
+body {
+  /* add a background color to the page */
+  background-color: var(--main_theme);
+}
+h1 {text-align: center}
+.masonry {
+    width: 1440px auto;
+    margin: 20px auto;
+    columns: 4;
+    column-gap: 30px; 
+}
+.item {
+    width: 100%;
+    break-inside: avoid;
+    margin-bottom: 30px;
+}
