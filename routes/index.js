@@ -8,7 +8,8 @@ router.get('/', function (req, res) {
   res.render('login',{salt:rString});
 })
 router.get('/homepage', function (req, res) {
-  res.render('homepage',{userinfo:req.app.locals['userinfo']});
+  // res.render('homepage',{userinfo:req.app.locals['userinfo']});
+  res.render('homepage',{userinfo:req.session.account});
 })
 router.get('/register', function (req, res) {
   res.render('register');

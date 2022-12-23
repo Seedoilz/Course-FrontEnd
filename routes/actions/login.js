@@ -40,6 +40,7 @@ router.get('/',function (req,res) {
         password = crypto.createHmac("sha256", user.salt).update(pwd).digest('hex');
         if (password === user.password) {
           console.log("OK");
+          req.session.account = req.query.account;
           req.app.locals['userinfo'] = req.query.account;
           console.log(req.app.locals['userinfo']);
           res.redirect("homepage");
