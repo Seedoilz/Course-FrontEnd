@@ -134,7 +134,8 @@ span{
 }
 .change{
     /*margin-bottom: 0;*/
-    padding-top: 500px;
+    height:10px;
+    /* padding-top: 500px; */
 }
 .confirm{
     width: 150px;

@@ -72,7 +72,12 @@ function checkPassword(){
 
     if(flag){
         //提示绿色对勾
-        s_password.innerHTML = "<img width='35' height='25' src='images/gou.png'/>";
+        var level = ['', '低', '中', '高'];
+        var lv = 0;
+        if(password.match(/[a-z]/g)){lv++;}
+        if(password.match(/[0-9]/g)){lv++;}
+        if(password.match(/(.[^a-z0-9])/g)) { lv++; }
+        s_password.innerHTML = "密码强度:" + level[lv];
     }else{
         //提示红色错误信息
         s_password.innerHTML = "密码格式有误";
@@ -85,8 +90,6 @@ function checkRePassword(){
     //1.获取密码的值
     var password = document.getElementById("password").value;
     var repassword = document.getElementById("repassword").value;
-
-
 
     if(repassword===password && repassword!=""){
         //提示绿色对勾
