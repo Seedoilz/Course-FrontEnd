@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <title>注册</title>
 
-    <link rel="stylesheet" href="/stylesheets/regist.css">
+    <link rel="stylesheet" href="/stylesheets/register.css">
     <link rel="shortcut icon" href="/images/camera.ico">
-    <script type="text/javascript" src="/javascripts/regist.js"></script>
+    <script type="text/javascript" src="/javascripts/register.js"></script>
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
 </head>
 <body>
@@ -31,12 +31,12 @@
 <!--    表单列表-->
     <div class="reg_center">
         <div class="reg_form">
-            <form action="#" method="post" id="form">
+            <form action="http://127.0.0.1:3000/process_get"  method = "GET" id="register">
                 <table>
                     <br><br><br>   
                     <tr>
                         <td class="td_left"><label for="email">Email</label></td>
-                        <td class="td_right"><input type="email" name="email" placeholder="请输入Email" id="Email">
+                        <td class="td_right"><input type="email" name="email" placeholder="请输入Email" id="email">
                             <span id="s_email" class="error"></span>
                         </td>
 
@@ -53,7 +53,6 @@
 					<tr>
                         <td class="td_left"><label for="rename">昵称(可选)</label></td>
                         <td class="td_right"><input type="text" name="rename" placeholder="请输入您的昵称" id="rename">
-
                             <span id="s_rename" class="error"></span>
                         </td>
 
@@ -85,17 +84,9 @@
 
                     </tr>
 
-                    <tr>
-                        <td class="td_left"><label>性别</label></td>
-                        <td class="td_right"><input type="radio" name="gender" value="male" checked> 男
-                            <input type="radio" name="gender" value="female"> 女
-                        </td>
-
-
-                    </tr>
 
                     <tr>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+                        <br><br>
                         <td class="td_left"><label for="checkcode">验证码</label></td>
                         <td class="td_right">
                             <div class="all">        
@@ -113,7 +104,7 @@
                 <tr>
                     &nbsp;&nbsp;&nbsp; &nbsp;  
                     <td colspan="2" align="center">
-                        <button type="button" value="注册" id="btn_sub" onclick="submitForm()">注册</button>
+                        <input type="submit" id = "submitReg" value="注册">
                     </td>
                 </tr>
             </form>
@@ -126,6 +117,6 @@
 </div>
 
 
-<script type="text/javascript" src="/javascripts/regist.js"></script>
+<script type="text/javascript" src="/javascripts/register.js"></script>
 </body>
 </html>

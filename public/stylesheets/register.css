@@ -103,7 +103,7 @@
     padding-left: 20px;
 }
 
-#username ,#password,#Email, #rename ,#Telphone,#Birthday,#checkcode,#repassword{
+#username ,#password,#email, #rename ,#Telphone,#Birthday,#checkcode,#repassword{
     /*设置输入框大小和边框*/
     width: 250px;
     height: 30px;
@@ -130,7 +130,7 @@ span{
     text-align: center;
     white-space: normal;
     float: left;
-    background:url("../img/code_bg.png");
+    background:url("../images/code_bg.png");
 }
 .change{
     /*margin-bottom: 0;*/
@@ -146,7 +146,7 @@ span{
 
 /*==================================================================*/
 
-#btn_sub{
+#submitReg{
     /*注册按钮*/
     margin-left: 100px;
     background: orangered;

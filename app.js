@@ -98,7 +98,6 @@ app.get('/login',function (req,res) {
       }
       else
       {   
-
           console.log("OK");
           req.app.locals['userinfo'] = req.query.account;
           console.log(req.app.locals['userinfo']);
@@ -107,4 +106,28 @@ app.get('/login',function (req,res) {
 });
  console.log(response);
  //res.end(JSON.stringify(response));
+})
+
+var  addSql = 'INSERT INTO userinfo(email,password,usrname,name,mobile) VALUES(?,?,?,?,?)';
+
+app.get('/process_get', function (req, res) {
+   // 输出 JSON 格式
+   var response = {
+       "account":req.query.email,
+       "password":req.query.password,
+       "name":req.query.username
+   };
+   var  addSqlParams = [req.query.email,req.query.password,req.query.username,req.query.rename,req.query.Telphone];
+   console.log(req.query.email);
+   connection.query(addSql,addSqlParams,function (err, result) {
+        if(err){
+         console.log('[INSERT ERROR] - ',err.message);
+         res.send("<script>alert('邮箱重复，请重新注册！');location.href='/register';</script>");
+         return;//如果失败了就直接return不会继续下面的代码
+        }
+        res.send("<script>alert('注册成功！');location.href='/';</script>");
+        return;
+});
+   console.log(response);
+   //res.end(JSON.stringify(response));
 })

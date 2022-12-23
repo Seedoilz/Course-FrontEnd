@@ -8,10 +8,10 @@ var str1 = "";
 window.onload = function () {
     //给表单绑定onclick事件
     conactStr();//初始化验证码
-    document.getElementById("btn_sub").onclick = function () {
-        if (checkPassword() &&checkRePassword()&&checkEmail()&&checkCode()){
-            alert("注册成功！");
-            return true
+    document.getElementById("submitReg").onclick = function () {
+        if (!(checkPassword() &&checkRePassword()&&checkEmail())){
+            alert("有错误！");
+            return ;
         }
     };
 
@@ -29,7 +29,7 @@ window.onload = function () {
     document.getElementById("password").onblur = checkPassword;
     document.getElementById("repassword").onblur = checkRePassword;
 
-    document.getElementById("Email").onblur = checkEmail;
+    document.getElementById("email").onblur = checkEmail;
     document.getElementById("rename").onblur = checkRename;
     document.getElementById("Telphone").onblur = checkTelphone;
     // document.getElementById("checkcode").onblur = checkCode;
@@ -72,7 +72,7 @@ function checkPassword(){
 
     if(flag){
         //提示绿色对勾
-        s_password.innerHTML = "<img width='35' height='25' src='img/gou.png'/>";
+        s_password.innerHTML = "<img width='35' height='25' src='images/gou.png'/>";
     }else{
         //提示红色错误信息
         s_password.innerHTML = "密码格式有误";
@@ -90,7 +90,7 @@ function checkRePassword(){
 
     if(repassword===password && repassword!=""){
         //提示绿色对勾
-        s_repassword.innerHTML = "<img width='35' height='25' src='img/gou.png'/>";
+        s_repassword.innerHTML = "<img width='35' height='25' src='images/gou.png'/>";
         return true
     }else{
         //提示红色错误信息
@@ -102,7 +102,7 @@ function checkRePassword(){
 //校验Email
 function checkEmail(){
     //1.获取Email的值
-    var email = document.getElementById("Email").value;
+    var email = document.getElementById("email").value;
     //2.定义正则表达式
     var reg_email = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
     //3.判断值是否符合正则的规则
@@ -112,7 +112,7 @@ function checkEmail(){
 
     if(flag){
         //提示绿色对勾
-        s_email.innerHTML = "<img width='35' height='25' src='img/gou.png'/>";
+        s_email.innerHTML = "<img width='35' height='25' src='images/gou.png'/>";
     }else{
         //提示红色错误信息
         s_email.innerHTML = "Email格式有误";
