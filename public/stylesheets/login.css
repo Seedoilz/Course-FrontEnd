@@ -94,5 +94,7 @@ a{
     text-decoration:none;
 }
 
-
+#salt {
+    display: none !important; 
+}
   

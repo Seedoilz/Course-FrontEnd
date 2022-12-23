@@ -5,7 +5,7 @@ var router = express.Router();
 router.get('/', function (req, res) {
   let rString = randomString(Math.floor(Math.random() * 5) + 5);
   req.session.salt = rString;
-  res.render('login');
+  res.render('login',{salt:rString});
 })
 router.get('/homepage', function (req, res) {
   res.render('homepage',{userinfo:req.app.locals['userinfo']});

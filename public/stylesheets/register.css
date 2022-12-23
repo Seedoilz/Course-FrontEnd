@@ -131,6 +131,7 @@ span{
     white-space: normal;
     float: left;
     background:url("../images/code_bg.png");
+    background-size:100%;
 }
 .change{
     /*margin-bottom: 0;*/

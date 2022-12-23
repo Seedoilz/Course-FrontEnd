@@ -17,7 +17,6 @@
     <div class="h_center">
         <img src="/images/logo.png" alt="">
     </div>
-
 </div>
 
 
@@ -25,6 +24,7 @@
 <div id="login_body">
     <div class="login_b_center">
         <div class="login_bg">
+            
             <h1>登录</h1>
             <form action="http://127.0.0.1:3001/login"  method = "GET" id="login">
                 
@@ -36,6 +36,7 @@
                 <div class="password">
                     <span class="iconfont icon-mima"></span><input type="password"  name="password" placeholder="密码">
                 </div>
+                <span id="salt"><%= salt %></span>
 <!--                //登录按钮-->
                 <div class="login_btn">
                     <input type="submit" value="登录">

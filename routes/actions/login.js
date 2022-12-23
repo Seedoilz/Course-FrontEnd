@@ -10,6 +10,8 @@ router.get('/',function (req,res) {
        "password":req.query.password,
    };
    var pwd = req.query.password;
+   let salt = req.query.salt;
+   console.log(salt);
    let front_salt = req.session.salt;
    console.log(front_salt);
     // if (!front_salt || pwd.length < 6) {

@@ -8,10 +8,17 @@ var str1 = "";
 window.onload = function () {
     //给表单绑定onclick事件
     conactStr();//初始化验证码
-    document.getElementById("submitReg").onclick = function () {
-        if (!(checkPassword() &&checkRePassword()&&checkEmail())){
-            alert("有错误！");
-            return ;
+    document.getElementById("register").onsubmit = function () {
+        if(!checkCode()){
+            alert("验证码输入错误！");
+            return false;
+        }
+        else if (!(checkPassword() &&checkRePassword()&&checkEmail())){
+            alert("信息中有错误！");
+            return false;
+        }
+        else{
+            return true;
         }
     };
 
@@ -173,7 +180,7 @@ function checkCode() {
         return true
     }
     else{
-        alert("验证码输入错误！");
+        // alert("验证码输入错误！");
         code.innerHTML="";
         str1="";
         conactStr();
@@ -217,10 +224,11 @@ function conactStr() {
         // spanEle.style.margin="5px";
         spanEle.style.fontSize=fontSize;
         spanEle.style.margin=marginNum+" "+(parseInt(marginNum)+3)+"px 0";
+        spanEle.onselectstart=function(){return false;};
+        code.onselectstart=function(){return false;};
         code.appendChild(spanEle);
         str="";
     }
-
 }
 
 function newChar(flag) {
