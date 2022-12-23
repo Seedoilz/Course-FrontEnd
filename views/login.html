@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link rel="shortcut icon" href="/images/camera.ico">
+    <link rel="stylesheet" href="/stylesheets/login.css">
+    <link rel="stylesheet" href="/stylesheets/footer.css">
+
+</head>
+<body>
+<!--头部-->
+<div id="header">
+
+    <!--头部中间信息-->
+    <div class="h_center">
+        <img src="/images/logo.png" alt="">
+    </div>
+
+</div>
+
+
+<!--中部-->
+<div id="login_body">
+    <div class="login_b_center">
+        <div class="login_bg">
+            <h1>登录</h1>
+            <form action="http://127.0.0.1:3000/login"  method = "GET" id="login">
+                
+<!--                //用户名-->
+                <div class="userName">
+                    <span></span><input type="text"  name = "account" placeholder="用户名/手机/邮箱">
+                </div>
+<!--                //密码-->
+                <div class="password">
+                    <span></span><input type="password"  name="password" placeholder="密码">
+                </div>
+<!--                //登录按钮-->
+                <div class="login_btn">
+                    <a href="homepage.html">
+                         <input type="submit" value="登录">
+                    </a>
+                </div>
+                <div class="txt1">
+                    <p id="orSign" align="center">
+                        ---- Or Login Using ----
+                    </p>
+                    <br>
+                    <svg width="290px" height="40px" viewBox="0 0 342 54" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <g id="Buttons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g id="Buttons---Sign-in-with-Apple" transform="translate(-20.000000, -137.000000)">
+                                <g id="Sign-in-with-Apple" transform="translate(20.000000, 77.000000)">
+                                    <g id="Sign-in-with-Apple---White-Outlined" transform="translate(0.000000, 60.000000)">
+                                        <g id="Button-Background" fill="#FFFFFF" stroke="#000000">
+                                            <path d="M7.6916556,0.5 L334.308344,0.5 C336.841302,0.5 337.766841,0.746060066 338.694738,1.24230471 C339.584092,1.71793682 340.282063,2.4159076 340.757695,3.30526232 C341.25394,4.23315913 341.5,5.15869799 341.5,7.6916556 L341.5,46.3083444 C341.5,48.841302 341.25394,49.7668409 340.757695,50.6947377 C340.282063,51.5840924 339.584092,52.2820632 338.694738,52.7576953 C337.766841,53.2539399 336.841302,53.5 334.308344,53.5 L7.6916556,53.5 C5.15869799,53.5 4.23315913,53.2539399 3.30526232,52.7576953 C2.4159076,52.2820632 1.71793682,51.5840924 1.24230471,50.6947377 C0.746060066,49.7668409 0.5,48.841302 0.5,46.3083444 L0.5,7.6916556 C0.5,5.15869799 0.746060066,4.23315913 1.24230471,3.30526232 C1.71793682,2.4159076 2.4159076,1.71793682 3.30526232,1.24230471 C4.23315913,0.746060066 5.15869799,0.5 7.6916556,0.5 Z" id="Appearance"></path>
+                                        </g>
+                                        <text id="-Sign-in-with-Apple" font-family=".AppleSystemUIFont" font-size="19" font-weight="normal" line-spacing="24" fill="#000000">
+                                            <tspan x="86.890894" y="31.7727273"> Sign in with Apple</tspan>
+                                        </text>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
+                    <br><br>
+                    
+                    <svg width="290px" height="40px" viewBox="0 0 300 52" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g id="modal-login-arcangelofiore" transform="translate(-309.000000, -781.000000)">
+                                <rect id="Rectangle-3" fill="#F44336" x="309" y="781" width="300" height="52" rx="8"></rect>
+                                <path d="M317,781 L361,781 L361,781 L361,833 L317,833 C312.581722,833 309,829.418278 309,825 L309,789 C309,784.581722 312.581722,781 317,781 Z" id="Rectangle-8" fill="#C53126"></path>
+                                <g id="Login-with-Google-2" transform="translate(407.000000, 795.000000)" fill="#FFFFFF" font-family=".AppleSystemUIFont" font-size="16" font-weight="normal">
+                                    <text id="Login-with-Google">
+                                        <tspan x="31.890625" y="15">LOGIN WITH </tspan>
+                                        <tspan x="45.3398438" y="33">GOOGLE</tspan>
+                                    </text>
+                                </g>
+                                <g id="google-plus" transform="translate(327.000000, 800.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                                    <path d="M14.3182624,5.52632553 L6.88746637,5.52632553 L6.88746637,9.07895346 L10.6246792,9.07895346 C10.1222887,10.5525077 8.9047407,11.4473721 7.34891765,11.4473721 C5.26891177,11.4473721 3.44373318,9.60199465 3.44373318,7.49845035 C3.44373318,5.39647883 5.26891177,3.55267419 7.34891765,3.55267419 C8.34338529,3.55267419 9.18405078,3.88032085 9.78020225,4.49962531 L10.0507236,4.78106005 L12.6132557,2.1374978 L12.3347079,1.85842223 C11.1217336,0.642618583 9.39798373,0 7.34896249,0 C3.2283205,0 0,3.29372092 0,7.49845035 C0,11.7047526 3.2283205,15 7.34891765,15 C11.1473374,15 13.8460943,12.7010612 14.3921143,9.00040707 C14.4632758,8.52038598 14.4996413,8.01515418 14.5,7.49845035 C14.5,6.9312326 14.4529177,6.31581382 14.3741333,5.85276948 L14.3182624,5.52632553 Z" id="Shape"></path>
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+            </form>
+
+
+            <div class="forgot_password">
+                <a href="register">注册账号</a>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<!--尾部-->
+<div id="footer">
+    <div class="link">
+        <a href="">关于我们</a>
+        |
+        <a href="">联系我们</a>
+        |
+        <a href="">商家入驻</a>
+        |
+        <a href="">友情链接</a>
+        |
+    </div>
+    <div class="copyright">
+        Copyright © 2022 201250203张若皓. All Rights Reserved.
+    </div>
+</div>
+</body>
+</html>
