@@ -109,3 +109,6 @@ h1 {text-align: center}
     break-inside: avoid;
     margin-bottom: 30px;
 }
+#logoutSubmit{
+  font-size: 15px;
+}

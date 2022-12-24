@@ -12,9 +12,12 @@
   <div class="top-bar">
     <div class="box-top">
         <ul class="top-ui-right">
-            <li>
-              <a><%= userinfo %></a>
-            </li>
+          <li>
+            <form action="http://127.0.0.1:3001/logout"  method = "GET" id="logout">
+              <!-- <input id="logoutSubmit" type="submit" value=<%= userinfo %>> -->
+              <a onclick="document:logout.submit()" id="logoutSubmit"><%= userinfo %></a>
+            </form>
+          </li>
         </ul>
       </div>
   </div> 

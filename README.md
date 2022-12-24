@@ -13,11 +13,23 @@
 
 ### 实现方案：
 
-#### 登陆注册：
+#### 登陆、注册、登出：
 
 利用express框架构建web服务器，使用mysql存取用户信息数据，使用session来鉴别用户当前登陆状态。
 
 首先创建数据库并建表（具体代码将放在安装内）之后，在express框架中链接数据库。随后创建路由，在应用中创建注册和登录路由，并使用表单提交的数据进行数据库操作。
+
+此外，我还添加了**登出**操作，当用户**点击右上角的邮箱**（即用户信息），服务器将会将session进行destroy操作，随后显示跳转到登陆界面。
+
+![image-20221224110453183](https://typora-tes.oss-cn-shanghai.aliyuncs.com/uPic/20221224110453image-20221224110453183.png)
+
+![image-20221224112703282](https://typora-tes.oss-cn-shanghai.aliyuncs.com/uPic/20221224112703image-20221224112703282.png)
+
+如果用户在不登陆的情况下直接进入上述homepage页面，则会显示“未登陆，访客状态”。此时，如果点击“未登陆，访客状态”，则会显示以下信息，并跳转到登陆界面。
+
+![image-20221224112500306](https://typora-tes.oss-cn-shanghai.aliyuncs.com/uPic/20221224112500image-20221224112500306.png)
+
+![image-20221224112640055](https://typora-tes.oss-cn-shanghai.aliyuncs.com/uPic/20221224112640image-20221224112640055.png)
 
 #### 加密：
 
@@ -30,7 +42,6 @@
 在登陆的时候，如果用户的用户密码正确（也就是能够正确登陆的话），则在express-session中存取用户当前的用户名以及其他信息，以确保其他页面也能够获得用户的登录信息。大致框架如下（实际实现中，分散在不同路由下）：
 
 ```js
-// 登录路由
 app.post('/login', (req, res) => {
   // 查询数据库并验证用户名密码
   // 省略...
@@ -49,6 +60,13 @@ app.get('/user', (req, res) => {
   } else {
     res.send({ success: false, message: '用户未登录！' });
   }
+});
+
+// 退出登录路由
+app.get('/logout', (req, res) => {
+  req.session.destroy(() => {
+    res.send({ success: true, message: '退出登录成功！' });
+  });
 });
 ```
 

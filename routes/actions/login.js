@@ -41,7 +41,7 @@ router.get('/',function (req,res) {
         if (password === user.password) {
           console.log("OK");
           req.session.account = req.query.account;
-          req.app.locals['userinfo'] = req.query.account;
+          req.app.locals['userinfo'] = req.session.account;
           console.log(req.app.locals['userinfo']);
           res.redirect("homepage");
         } else {

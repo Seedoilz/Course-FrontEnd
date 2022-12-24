@@ -95,3 +95,7 @@ img{
   max-width: 100%;
   max-height: 100%;
 }
+
+#logoutSubmit{
+  font-size: 15px;
+}
