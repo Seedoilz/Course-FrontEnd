@@ -28,7 +28,7 @@
     background-attachment: scroll;
     background-image: url("../images/loginBG.jpg");
     background-position: center;
-    background-size: 1400px 1000px;
+    background-size: 100%;
 }
 #login_body .login_b_center{
     width: 1200px;
