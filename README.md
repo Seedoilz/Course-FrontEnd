@@ -89,7 +89,7 @@ app.get('/logout', (req, res) => {
 npm install
 ```
 
-2. 启动数据库并创建对应用户信息表
+2. 启动数据库并创建对应用户信息表,并添加信息。（邮箱为:**1@q.com**,密码为:**111111**) 可直接使用这些信息登陆。
 
 ```sql
 create table userinfo (
@@ -101,6 +101,7 @@ create table userinfo (
  password char(100) DEFAULT (NOT NULL) COMMENT '密码',
  salt char(100) DEFAULT NULL COMMENT '加密'
 );
+INSERT INTO userinfo(email,password,usrname,name,mobile,salt) VALUES('1@q.com','866e3796030a772a29e3541973a945f3e93ac3ac22c78557a7543338d19b558c','','','','{ko?J,7N0Jrv@!u')
 ```
 
 3. 修改项目中链接数据库的密码和对应database（对应文件在/routes/actions/sql.js 路径下)
