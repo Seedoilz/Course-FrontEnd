@@ -74,6 +74,13 @@ tensorflowjs还包括可以python的库，其中python中的库是含有tensorfl
 
 ## 参考文献
 
-https://www.jianshu.com/p/09d0ed7e73db
+https://tensorflow.google.cn/js/tutorials/setup?hl=zh-cn
 
 https://www.cnblogs.com/devilyouwei/p/9127061.html
+
+https://tensorflow.google.cn/js/tutorials/conversion/import_saved_model?hl=zh-cn
+
+https://www.jianshu.com/p/09d0ed7e73db
+
+
+
