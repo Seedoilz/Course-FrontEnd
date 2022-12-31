@@ -117,6 +117,12 @@ router.get('/subpages/subpage10', function (req, res) {
     res.render('subpages/subpage10',{userinfo:req.session.account});
   }
 })
+router.get('/index', function (req, res) {
+  res.render('index');
+})
+router.get('/waterMark', function (req, res) {
+  res.render('waterMark');
+})
 
 function randomString(length) {
   let chars = '0123456789~-=[]\\;\',./abcdefghijklmnopqrstuvwxyz!@#&ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+{}|":?><';

@@ -5,6 +5,13 @@
   --main_fonthover: black;
   --main_theme: #e6e6e6;
 }
+.dark{
+  --main_color: #1f2020;
+  --main_hover: #353535;
+  --main_font: rgb(82, 82, 82);
+  --main_fonthover: rgb(50, 50, 50);
+  --main_theme: #696969;
+}
 .top-bar {
   width: 100%;
   height: 50px;
