@@ -1,28 +1,23 @@
 tf.setBackend('wasm').then(() => runModel())
 
+document.getElementById('file').addEventListener('change', evt => {
+  evt.target.files.forEach(f => {
+    if (!f.type.match('image.*')) { return }
+    let reader = new FileReader()
+    reader.onload = e => { document.getElementById('input').src = e.target.result }
+    reader.readAsDataURL(f)
+  })
+  evt.target.value = null
+})
+
+document.querySelectorAll('#examples img').forEach(
+  img => img.addEventListener('click', evt => { document.getElementById('input').src = img.src })
+)
+
 const APP = {
   model: null, size: 600,
-  source: document.getElementById('input'),
-  canvas: document.getElementById('output'),
-  status: document.getElementById('status'),
-  download: document.getElementById('download'),
   $: n => document.getElementById(n),
   path: '../model/model.json'
-}
-
-const runModel = async () => {
-  APP.model = await tf.loadGraphModel(APP.path)
-  // warm up
-  APP.model.predict(tf.zeros([1, 1, 1, 3])).dispose()
-  predict(APP.source)
-  APP.source.onload = () => {
-    setTimeout(() => {
-      APP.status.classList.remove('d-none')
-      APP.canvas.classList.add('d-none')
-      APP.canvas.classList.remove('d-block')
-    }, 0)
-    setTimeout(() => { predict(APP.source) }, 50)
-  }
 }
 
 async function predict(imgElement) {
@@ -30,9 +25,9 @@ async function predict(imgElement) {
   const shape = img.shape
   const [w, h] = shape
   img = normalize(img)
-  const t0 = performance.now()
+  const temp = performance.now()
   const result = await APP.model.predict({ 'input_photo:0': img })
-  const timer = performance.now() - t0
+  const timer = performance.now() - temp
   let img_out = await result.squeeze().sub(tf.scalar(-1)).div(tf.scalar(2)).clipByValue(0, 1)
   const pad = Math.round(Math.abs(w - h) / Math.max(w, h) * APP.size)
   const slice = (w > h) ? [0, pad, 0] : [pad, 0, 0]
@@ -43,7 +38,6 @@ async function predict(imgElement) {
 
 function normalize(img) {
   const [w, h] = img.shape
-  // pad
   const pad = (w > h) ? [[0, 0], [w - h, 0], [0, 0]] : [[h - w, 0], [0, 0], [0, 0]]
   img = img.pad(pad)
   const size = APP.size
@@ -54,10 +48,10 @@ function normalize(img) {
 
 function draw(img, size) {
   const scaleby = size[0] / img.shape[0]
-  tf.browser.toPixels(img, APP.canvas)
-  APP.canvas.classList.remove('d-none')
-  APP.canvas.classList.add('d-block')
-  APP.status.classList.add('d-none')
+  tf.browser.toPixels(img, document.getElementById('output'))
+  document.getElementById('output').classList.remove('d-none')
+  document.getElementById('output').classList.add('d-block')
+  document.getElementById('status').classList.add('d-none')
   setTimeout(() => scaleCanvas(scaleby))
 }
 
@@ -74,19 +68,19 @@ function scaleCanvas(pct=2) {
   canvas.height *= pct
   const ctx = canvas.getContext('2d')
   ctx.drawImage(tmpcan, 0, 0, cw, ch, 0, 0, cw*pct, ch*pct)
-  APP.download.href = canvas.toDataURL('image/jpeg')
+  document.getElementById('download').href = canvas.toDataURL('image/png')
 }
 
-document.getElementById('file').addEventListener('change', evt => {
-  evt.target.files.forEach(f => {
-    if (!f.type.match('image.*')) { return }
-    let reader = new FileReader()
-    reader.onload = e => { APP.source.src = e.target.result }
-    reader.readAsDataURL(f)
-  })
-  evt.target.value = null
-})
-
-document.querySelectorAll('#examples img').forEach(
-  img => img.addEventListener('click', evt => { APP.source.src = img.src })
-)
+const runModel = async () => {
+  APP.model = await tf.loadGraphModel(APP.path)
+  APP.model.predict(tf.zeros([1, 1, 1, 3])).dispose()
+  predict(document.getElementById('input'))
+  document.getElementById('input').onload = () => {
+    setTimeout(() => {
+      document.getElementById('status').classList.remove('d-none')
+      document.getElementById('output').classList.add('d-none')
+      document.getElementById('output').classList.remove('d-block')
+    }, 0)
+    setTimeout(() => { predict(document.getElementById('input')) }, 50)
+  }
+}

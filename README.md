@@ -4,155 +4,76 @@
 
 ## 概述
 
-此次，登陆注册功能实现，我使用了以下内容：
+此次，网络前端智能化，除了上一次登陆注册主要使用的express框架以外还有以下内容：
 
-1. nodejs中express框架
-2. mysql数据库
-3. sha256加密方法
-4. express-session鉴权方法
+1. **[White-box-Cartoonization](https://github.com/SystemErrorWang/White-box-Cartoonization)**（老师所给的材料中的项目）
+2. tensorflow.js
+3. tensorflowjs_converter（用户转化老师所给的模型为json格式的模型以及权重文件）
 
-### 实现方案：
+## 安装、运行过程
 
-#### 登陆、注册、登出：
+1. 与上一次登陆注册几乎一致
+2. 首先，进入项目，在项目根目录下运行npm install
+3. 随后直接运行npm start
+4. 点击http://localhost:3001进入页面
+5. 可以运行我所包含的sql代码，然后登陆进入homepage页面，也可以直接输入以下网址http://localhost:3001/index来直接进入**“智能前端卡通化”**的页面。
 
-利用express框架构建web服务器，使用mysql存取用户信息数据，使用session来鉴别用户当前登陆状态。
+## 具体功能、呈现效果
 
-首先创建数据库并建表（具体代码将放在安装内）之后，在express框架中链接数据库。随后创建路由，在应用中创建注册和登录路由，并使用表单提交的数据进行数据库操作。
+### 如果正确登陆
 
-此外，我还添加了**登出**操作，当用户**点击右上角的邮箱**（即用户信息），服务器将会将session进行destroy操作，随后显示跳转到登陆界面。
+在上一次的登陆注册功能的基础上，如果正确登陆进入了以下界面。那么可以在导航栏中选择**“智能前端卡通化”**进入功能。
 
-![image-20221224110453183](https://typora-tes.oss-cn-shanghai.aliyuncs.com/uPic/20221224110453image-20221224110453183.png)
+![image-20221231215040106](https://typora-tes.oss-cn-shanghai.aliyuncs.com/uPic/20221231215040image-20221231215040106.png)
 
-![image-20221224112703282](https://typora-tes.oss-cn-shanghai.aliyuncs.com/uPic/20221224112703image-20221224112703282.png)
+### 如果直接进入功能页面
 
-如果用户在不登陆的情况下直接进入上述homepage页面，则会显示“未登陆，访客状态”。此时，如果点击“未登陆，访客状态”，则会显示以下信息，并跳转到登陆界面。
+随后可以进入**“智能前端卡通化”**的页面之中，页面如下：
 
-![image-20221224112500306](https://typora-tes.oss-cn-shanghai.aliyuncs.com/uPic/20221224112500image-20221224112500306.png)
+![image-20221231215212081](https://typora-tes.oss-cn-shanghai.aliyuncs.com/uPic/20221231215212image-20221231215212081.png)
 
-![image-20221224112640055](https://typora-tes.oss-cn-shanghai.aliyuncs.com/uPic/20221224112640image-20221224112640055.png)
+其中，左侧可以选择自己需要卡通化的图片，右侧是预览框。“Upload Pics”按钮点击之后能够上传图片，“Save”按钮点击之后，就能够将生成的图片下载下来。效果如下：
 
-#### 加密：
+![image-20221231215951978](https://typora-tes.oss-cn-shanghai.aliyuncs.com/uPic/20221231215952image-20221231215951978.png)
 
-注册中，在每一次注册的时候，生成一个随机的salt字符串，然后用sha256的加密方法生成一个密码，将加密过后的密码和salt一同存在数据库中。
+## 实现思路（具体方法）
 
-登陆中，根据账户的用户名在数据库中找到对应的salt，将用户输入的密码用对应的salt加密之后与数据库存的加密的数据进行比对。如果相同，则允许登陆，否则则显示帐号密码错误。
+由于老师给的项目所给的模型是tensorflow的模型，不能给在javascript中使用，并且由于我上一次使用的框架为express框架并不支持python文件的运行。偶然间，我发现了tensorflowjs这个东西。tensorflowjs既包括javascript中的代码（可以由npm install安装，也可以直接通过以下代码引入，本次实验运用的后者）；
 
-#### 鉴权方法：
-
-在登陆的时候，如果用户的用户密码正确（也就是能够正确登陆的话），则在express-session中存取用户当前的用户名以及其他信息，以确保其他页面也能够获得用户的登录信息。大致框架如下（实际实现中，分散在不同路由下）：
-
-```js
-app.post('/login', (req, res) => {
-  // 查询数据库并验证用户名密码
-  // 省略...
-
-  // 登录成功，设置session
-  req.session.user = {
-    username: username
-  };
-  res.send({ success: true, message: '登录成功！' });
-});
-
-// 获取用户信息路由
-app.get('/user', (req, res) => {
-  if (req.session.user) {
-    res.send({ success: true, user: req.session.user });
-  } else {
-    res.send({ success: false, message: '用户未登录！' });
-  }
-});
-
-// 退出登录路由
-app.get('/logout', (req, res) => {
-  req.session.destroy(() => {
-    res.send({ success: true, message: '退出登录成功！' });
-  });
-});
+```html
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"></script>
 ```
 
-#### 密码规则（使用正则表达式实现）：
+tensorflowjs还包括可以python的库，其中python中的库是含有tensorflowjs_converter这个内容的，可以帮助我们将tensorflow_saved_model转化为json文件。随后，我安装了这个库并使用了这个库帮助我将模型进行转化。转化出来的结果存放在这个项目中的/public/model目录下，包含一个模型，和两个权重文件。
 
-我使用的方法是首先要求长度为6-20位，密码中的内容只能使用**下划线**，**数字**，**字母**。如果其中只包含数字，则强度位低；包含其中两个，则强度为中；全部包含，则强度为高。
+### 主要方法的介绍(model.js)
 
-#### 验证码：
+首先将 TensorFlow.js 的后端设置为 'wasm'，然后调用 'runModel' 函数。TensorFlow.js 是一个用于训练和部署机器学习模型的 JavaScript 库，'wasm' 后端允许 TensorFlow.js 在 WebAssembly 运行时上运行，与默认的 JavaScript 后端相比，这可以提高性能。
 
-随机生成4个数字或字母（大小写均有可能），并为它们每个字符生成不同的角度和颜色，将其生成在一个canvas上，形成一个图片。每当点击“注册”按钮的时候会进行验证，如果验证码错误，则不允许进行注册。
+接下来，脚本为 HTML 输入元素（ID 为 'file'）的 'change' 事件设置了事件监听器。当此事件触发时，脚本会将所选文件读取为 DataURL，并将图像元素（ID 为 'input'）的 'src' 属性设置为 DataURL。这允许用户选择图像文件并在网页中显示它。
 
-> 大致实现框架如上，中间有太多细小繁杂的东西要实现，就不一一说明。（中间也碰到了很多问题。
+###  'APP' 对象
 
-## 安装：
+根据教程，我定义了一个名为 'APP' 的对象，该对象主要包含的内容就是model，以及关于model的一些属性，用来包装model，方便进行使用。
 
-1. 安装nodejs中所需依赖
+#### 'predict' 函数
 
-```sh
-//cd进目标文件夹
-npm install
-```
+'predict' 函数是执行图像风格化的主要函数。它接受图像元素作为参数，使用 TensorFlow.js 函数处理图像并将其通过机器学习模型。然后使用模型的预测生成图像的风格化版本，并在网页的 canvas 元素中显示。
 
-2. 启动数据库并创建对应用户信息表,并添加信息。(源文件中有userinfo.sql文件可以使用)
-   （邮箱为:**1@q.com**,密码为:**111111**) 可直接使用这些信息登陆。
+### 'normalize' 函数
 
-```sql
-create table userinfo (
- id int(11) unsigned NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '主键',
- name   varchar(64) DEFAULT NULL COMMENT '昵称',
- usrname varchar(64) DEFAULT NUll COMMENT '用户名',
- email  varchar(64) UNIQUE NOT NUll COMMENT '邮箱',
- mobile  char(11)  DEFAULT NULL COMMENT '手机号码',
- password char(100) DEFAULT (NOT NULL) COMMENT '密码',
- salt char(100) DEFAULT NULL COMMENT '加密'
-);
-INSERT INTO userinfo(email,password,usrname,name,mobile,salt) VALUES('1@q.com','866e3796030a772a29e3541973a945f3e93ac3ac22c78557a7543338d19b558c','','','','{ko?J,7N0Jrv@!u')
-```
+'normalize' 函数用于在将输入图像传递给模型之前对其进行预处理。它在图像的宽度和高度不相等时填充图像，将其调整为固定大小，并通过从每个像素值中减去一个标量值并将结果除以另一个标量值来进行某些归一化。
 
-3. 修改项目中链接数据库的密码和对应database（对应文件在/routes/actions/sql.js 路径下)
+### 'draw' 函数
 
-```js
-//这里是我的数据库信息
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'Czy026110',
-  database: 'homework'
-});
-```
+'draw' 函数接受风格化后的图像和输入图像的原始大小作为参数，使用 TensorFlow.js 函数在网页的 canvas 元素中呈现风格化后的图像。'scaleCanvas' 函数用于调整 canvas 元素的大小。
 
-4. 启动web服务器
+### 'runModel' 函数
 
-```sh
-npm start
-```
-
-5. 进入网站(默认情况下应该是http://localhost:3001)即可。
-
-## 运行过程以及可能的界面截图：
-
-### 登陆界面
-
-![image-20221223195734965](https://typora-tes.oss-cn-shanghai.aliyuncs.com/uPic/20221223195735image-20221223195734965.png)
-
-### 登陆失败即密码错误
-
-![image-20221223195834442](https://typora-tes.oss-cn-shanghai.aliyuncs.com/uPic/20221223195834image-20221223195834442.png)
-
-### 注册页面
-
-![image-20221223195950969](https://typora-tes.oss-cn-shanghai.aliyuncs.com/uPic/20221223195951image-20221223195950969.png)
-
-### 注册中验证码错误
-
-![image-20221223200030704](https://typora-tes.oss-cn-shanghai.aliyuncs.com/uPic/20221223200030image-20221223200030704.png)
-
-### 注册中信息错误（只要求Email和密码）
-
-![image-20221223200049384](https://typora-tes.oss-cn-shanghai.aliyuncs.com/uPic/20221223200049image-20221223200049384.png)
-
-### 主页面（右上角为用户的邮箱）（子页面与之一致，省略了）
-
-![image-20221223200208740](https://typora-tes.oss-cn-shanghai.aliyuncs.com/uPic/20221223200208image-20221223200208740.png)
+'runModel' 函数是一个 async 函数，它从 JSON 文件中加载机器学习模型，然后使用 'input' 图像元素作为参数调用 'predict' 函数。这使得网页显示输入图像的风格化版本。
 
 ## 参考文献
 
-主要参考了网上别人写的这一篇博客（但它实现的太过简单了）：
+https://www.jianshu.com/p/09d0ed7e73db
 
-https://www.cnblogs.com/wuyepeng/p/9995375.html
+https://www.cnblogs.com/devilyouwei/p/9127061.html
