@@ -3,10 +3,14 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function (req, res) {
-  let rString = randomString(Math.floor(Math.random() * 5) + 5);
-  req.session.salt = rString;
-  res.render('login',{salt:rString});
-  req.session.account = undefined;
+  if(req.session.account){
+    res.redirect("homepage");
+  }
+  else{
+    let rString = randomString(Math.floor(Math.random() * 5) + 5);
+    req.session.salt = rString;
+    res.render('login',{salt:rString});
+  }
 })
 router.get('/homepage', function (req, res) {
   // res.render('homepage',{userinfo:req.app.locals['userinfo']});
@@ -15,6 +19,7 @@ router.get('/homepage', function (req, res) {
     res.render('homepage',{userinfo:"未登陆，访客状态"});
   }
   else{
+    console.log(req.session.account);
     res.render('homepage',{userinfo:req.session.account});
   }
 })

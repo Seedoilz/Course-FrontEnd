@@ -6,24 +6,26 @@ let router = express.Router();
 
 //注册模块
 var  addSql = 'INSERT INTO userinfo(email,password,usrname,name,mobile,salt) VALUES(?,?,?,?,?,?)';
-router.get('/', function (req, res) {
+router.post('/', function (req, res) {
   var response = {
-    "account":req.query.email,
-    "password":req.query.password,
+    "account":req.body.email,
+    "password":req.body.password,
 };
    let salt = randomString(Math.floor(Math.random()*5)+15);
    let hmac = crypto.createHmac("sha256",salt);
-   let password = hmac.update(req.query.password).digest('hex');
-   var  addSqlParams = [req.query.email,password,req.query.username,req.query.rename,req.query.Telphone,salt];
+   let password = hmac.update(req.body.password).digest('hex');
+   var  addSqlParams = [req.body.email,password,req.body.username,req.body.rename,req.body.Telphone,salt];
    console.log(salt);
    console.log(password);
-   console.log(req.query.email);
+   console.log(req.body.email);
    connection.query(addSql,addSqlParams,function (err, result) {
         if(err){
          res.send("<script>alert('邮箱重复 请重新注册');location.href='/register';</script>");
          return;
         }
-        res.send("<script>alert('注册成功');location.href='/';</script>");
+        req.session.destroy(() => {
+          res.send("<script>alert('注册成功');location.href='/';</script>");
+        });
         return;
 });
 console.log(response);

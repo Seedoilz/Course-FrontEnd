@@ -4,16 +4,14 @@ const crypto = require('crypto');
 
 let router = express.Router();
 //登陆模块
-router.get('/',function (req,res) {
+router.post('/',function (req,res) {
     var response = {
-       "account":req.query.account,
-       "password":req.query.password,
+       "account":req.body.account,
+       "password":req.body.password,
    };
-   var pwd = req.query.password;
-   let salt = req.query.salt;
-   console.log(salt);
+   var pwd = req.body.password;
    let front_salt = req.session.salt;
-   console.log(front_salt);
+   console.log(req.body.account);
     // if (!front_salt || pwd.length < 6) {
     //     res.send('{"code":"-1"}');
     //     return;
@@ -27,9 +25,9 @@ router.get('/',function (req,res) {
   // }
   // pwd = pwd.substring(0, pwd.length - front_salt.length);
    let selectSQL = 'SELECT * FROM `userinfo` WHERE email = (?)';
-   //var selectSQL = "select password from user where account='"+req.query.account+"'";
-   var  addSqlParams = [req.query.account,req.query.password];
-      connection.query(selectSQL,req.query.account,function (err, result) {
+   //var selectSQL = "select password from user where account='"+req.body.account+"'";
+   var  addSqlParams = [req.body.account,req.body.password];
+      connection.query(selectSQL,req.body.account,function (err, result) {
         if(err){
          res.send("<script>alert('没有此账号');location.href='/';</script>");
          console.log('[login ERROR] - ',err.message);
@@ -40,7 +38,7 @@ router.get('/',function (req,res) {
         password = crypto.createHmac("sha256", user.salt).update(pwd).digest('hex');
         if (password === user.password) {
           console.log("OK");
-          req.session.account = req.query.account;
+          req.session.account = req.body.account;
           req.app.locals['userinfo'] = req.session.account;
           console.log(req.app.locals['userinfo']);
           res.redirect("homepage");
