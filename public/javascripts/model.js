@@ -11,7 +11,8 @@ document.getElementById('file').addEventListener('change', evt => {
 })
 
 document.querySelectorAll('#examples img').forEach(
-  img => img.addEventListener('click', evt => { document.getElementById('input').src = img.src })
+  img => img.addEventListener('click', evt => 
+  { document.getElementById('input').src = img.src })
 )
 
 const APP = {
@@ -24,7 +25,13 @@ async function predict(imgElement) {
   let img = tf.browser.fromPixels(imgElement)
   const shape = img.shape
   const [w, h] = shape
-  img = normalize(img)
+  const [y, z] = img.shape
+  const pad0 = (y > z) ? [[0, 0], [y - z, 0], [0, 0]] : [[z - y, 0], [0, 0], [0, 0]]
+  img = img.pad(pad0)
+  const size = APP.size
+  img = tf.image.resizeBilinear(img, [size, size]).reshape([1, size, size, 3])
+  const offset = tf.scalar(127.5)
+  img = img.sub(offset).div(offset)
   const temp = performance.now()
   const result = await APP.model.predict({ 'input_photo:0': img })
   const timer = performance.now() - temp
@@ -32,27 +39,13 @@ async function predict(imgElement) {
   const pad = Math.round(Math.abs(w - h) / Math.max(w, h) * APP.size)
   const slice = (w > h) ? [0, pad, 0] : [pad, 0, 0]
   img_out = img_out.slice(slice)
-  draw(img_out, shape)
-  console.log(Math.round(timer / 1000 * 10) / 10)
-}
-
-function normalize(img) {
-  const [w, h] = img.shape
-  const pad = (w > h) ? [[0, 0], [w - h, 0], [0, 0]] : [[h - w, 0], [0, 0], [0, 0]]
-  img = img.pad(pad)
-  const size = APP.size
-  img = tf.image.resizeBilinear(img, [size, size]).reshape([1, size, size, 3])
-  const offset = tf.scalar(127.5)
-  return img.sub(offset).div(offset)
-}
-
-function draw(img, size) {
-  const scaleby = size[0] / img.shape[0]
-  tf.browser.toPixels(img, document.getElementById('output'))
+  const scaleby = shape[0] / img_out.shape[0]
+  tf.browser.toPixels(img_out, document.getElementById('output'))
   document.getElementById('output').classList.remove('d-none')
   document.getElementById('output').classList.add('d-block')
   document.getElementById('status').classList.add('d-none')
   setTimeout(() => scaleCanvas(scaleby))
+  console.log(Math.round(timer / 1000 * 10) / 10)
 }
 
 function scaleCanvas(pct=2) {
