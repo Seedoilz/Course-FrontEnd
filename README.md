@@ -56,13 +56,13 @@ tensorflowjs还包括可以python的库，其中python中的库是含有tensorfl
 
 根据教程，我定义了一个名为 'APP' 的对象，该对象主要包含的内容就是model，以及关于model的一些属性，用来包装model，方便进行使用。
 
-#### 'predict' 函数
+### 'predict' 函数
 
 'predict' 函数是执行图像风格化的主要函数。它接受图像元素作为参数，使用 TensorFlow.js 函数处理图像并将其通过机器学习模型。
 
-在使用模型前，要先将图片进行normalize，normalize' 函数用于在将输入图像传递给模型之前对其进行预处理。它在图像的宽度和高度不相等时填充图像，将其调整为固定大小，并通过从每个像素值中减去一个标量值并将结果除以另一个标量值来进行某些归一化。
+在使用模型前，要先将图片进行normalize，normalize用于在将输入图像传递给模型之前对其进行预处理。它在图像的宽度和高度不相等时填充图像，将其调整为固定大小，并通过从每个像素值中减去一个标量值并将结果除以另一个标量值来进行某些归一化。
 
-使用风格化后的图像和输入图像的原始大小作为参数，再依靠 TensorFlow.js 函数在网页的 canvas 元素中呈现风格化后的图像。'scaleCanvas' 函数用于调整 canvas 元素的大小。然后使用模型的预测生成图像的风格化版本，并在网页的 canvas 元素中显示。
+使用风格化后的图像和输入图像的原始大小作为参数，再依靠 TensorFlow.js 函数在网页的 canvas 元素中呈现风格化后的图像。此外还需要调整 canvas 元素的大小。然后使用模型的预测生成图像的风格化版本，并在网页的 canvas 元素中显示。
 
 ### 'runModel' 函数
 
@@ -77,6 +77,3 @@ https://www.cnblogs.com/devilyouwei/p/9127061.html
 https://tensorflow.google.cn/js/tutorials/conversion/import_saved_model?hl=zh-cn
 
 https://www.jianshu.com/p/09d0ed7e73db
-
-
-
