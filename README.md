@@ -16,7 +16,7 @@
 2. 首先，进入项目，在项目根目录下运行npm install
 3. 随后直接运行npm start
 4. 点击http://localhost:3001进入页面
-5. 可以运行我所包含的sql代码，然后登陆进入homepage页面，也可以直接输入以下网址http://localhost:3001/index来直接进入**“智能前端卡通化”**的页面。
+5. 可以运行我所包含的sql代码，然后登陆进入homepage页面，也可以直接输入以下网址http://localhost:3001/index 来直接进入**“智能前端卡通化”**的页面。
 
 ## 具体功能、呈现效果
 
